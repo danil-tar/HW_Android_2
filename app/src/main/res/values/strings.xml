@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">HW_Android_2</string>
+    <string name="app_hello">Hello, Anonymous</string>
+    <string name="app_enterName">Enter Name Here</string>
+    <string name="ButtonToEnterName">Press To Enter Name</string>
+    <string name="counter">Counter is empty</string>
+    <string name="buttonCounter">Counter +1</string>
+
+</resources>
