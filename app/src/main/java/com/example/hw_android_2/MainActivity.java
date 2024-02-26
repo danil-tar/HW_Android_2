@@ -9,46 +9,42 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.function.Predicate;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView textHello;
+    private Editable enteredNameText;
     private long count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditText enteredName = findViewById(R.id.enterName);
         textHello = findViewById(R.id.textHello);
 
-        Button counterButton = findViewById(R.id.counterButton);
-        TextView counter = findViewById(R.id.counter);
+        EditText enteredName = findViewById(R.id.enterName);
+        enteredNameText = enteredName.getText();
 
-
-        Editable enteredNameText = enteredName.getText();
         Button buttonToEnterName = findViewById(R.id.buttonToEnterName);
-
         buttonToEnterName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setEnteredName(enteredNameText);
+                textHello.setText("Hello " + enteredNameText);
             }
         });
+        
+        TextView counter = findViewById(R.id.counter);
+        View.OnClickListener l = v -> {
+            count++;
+            String valueOfCount = String.valueOf(count);
+            counter.setText("Counter = " + valueOfCount);
+        };
 
-        counterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View c) {
-                count++;
-                String valueOfCount = String.valueOf(count);
-                counter.setText("Counter = " + valueOfCount);
-            }
-        });
+        Button counterButton = findViewById(R.id.counterButton);
+        counterButton.setOnClickListener(l);
 
-    }
-
-    private void setEnteredName(Editable enteredNameText) {
-        textHello.setText("Hello " + enteredNameText);
     }
 }
