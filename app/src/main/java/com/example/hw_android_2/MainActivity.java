@@ -26,16 +26,17 @@ public class MainActivity extends AppCompatActivity {
         textHello = findViewById(R.id.textHello);
 
         EditText enteredName = findViewById(R.id.enterName);
-        enteredNameText = enteredName.getText();
 
         Button buttonToEnterName = findViewById(R.id.buttonToEnterName);
         buttonToEnterName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                enteredNameText = enteredName.getText();
                 textHello.setText("Hello " + enteredNameText);
+                enteredName.setText("");
             }
         });
-        
+
         TextView counter = findViewById(R.id.counter);
         View.OnClickListener l = v -> {
             count++;

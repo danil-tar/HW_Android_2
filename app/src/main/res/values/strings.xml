@@ -4,6 +4,6 @@
     <string name="app_enterName">Enter Name Here</string>
     <string name="ButtonToEnterName">Press To Enter Name</string>
     <string name="counter">Counter is empty</string>
-    <string name="buttonCounter">Counter +1</string>
+    <string name="buttonCounter">Press to add 1 to counter</string>
 
 </resources>
