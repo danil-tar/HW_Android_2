@@ -1,7 +1,9 @@
 package com.example.hw_android_2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
@@ -15,32 +17,38 @@ import java.util.function.Predicate;
 public class MainActivity extends AppCompatActivity {
 
     private TextView textHello;
-    private Editable enteredNameText;
-    private long count = 0;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textHello = findViewById(R.id.textHello);
+        MainViewModel mainViewModel
+                = new ViewModelProvider(this).get(MainViewModel.class);
 
+        textHello = findViewById(R.id.textHello);
         EditText enteredName = findViewById(R.id.enterName);
+
+        textHello.setText("Hello " + mainViewModel.nameEntered + "!");
 
         Button buttonToEnterName = findViewById(R.id.buttonToEnterName);
         buttonToEnterName.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
-                enteredNameText = enteredName.getText();
-                textHello.setText("Hello " + enteredNameText);
+                mainViewModel.nameEntered = enteredName.getText().toString();
+                textHello.setText("Hello " + mainViewModel.nameEntered + "!");
                 enteredName.setText("");
             }
         });
 
         TextView counter = findViewById(R.id.counter);
+        counter.setText("Counter = " + mainViewModel.count);
+
         View.OnClickListener l = v -> {
-            count++;
-            String valueOfCount = String.valueOf(count);
+            mainViewModel.count++;
+            String valueOfCount = String.valueOf(mainViewModel.count);
             counter.setText("Counter = " + valueOfCount);
         };
 
