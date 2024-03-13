@@ -24,36 +24,33 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MainViewModel mainViewModel
-                = new ViewModelProvider(this).get(MainViewModel.class);
-
         textHello = findViewById(R.id.textHello);
         EditText enteredName = findViewById(R.id.enterName);
 
-        textHello.setText("Hello " + mainViewModel.nameEntered + "!");
+        MainViewModel mainViewModel
+                = new ViewModelProvider(this).get(MainViewModel.class);
+        mainViewModel.getNameEntered()
+                .observe(this, s -> textHello.setText("Hello " + s + "!"));
 
         Button buttonToEnterName = findViewById(R.id.buttonToEnterName);
-        buttonToEnterName.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onClick(View v) {
-                mainViewModel.nameEntered = enteredName.getText().toString();
-                textHello.setText("Hello " + mainViewModel.nameEntered + "!");
-                enteredName.setText("");
-            }
+        buttonToEnterName.setOnClickListener(v -> {
+            mainViewModel.setNameEntered(enteredName.getText().toString());
+            enteredName.setText("");
         });
 
         TextView counter = findViewById(R.id.counter);
-        counter.setText("Counter = " + mainViewModel.count);
+
+        mainViewModel.getCount()
+                .observe(this, aLong -> counter.setText("Counter = " + aLong));
 
         View.OnClickListener l = v -> {
             mainViewModel.count++;
-            String valueOfCount = String.valueOf(mainViewModel.count);
-            counter.setText("Counter = " + valueOfCount);
+            mainViewModel.setCount(mainViewModel.count);
         };
 
         Button counterButton = findViewById(R.id.counterButton);
         counterButton.setOnClickListener(l);
+
 
     }
 }
